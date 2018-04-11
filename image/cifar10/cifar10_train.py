@@ -38,13 +38,10 @@ from __future__ import print_function
 
 from datetime import datetime
 import time
-
 import tensorflow as tf
-
 import cifar10
 
 FLAGS = tf.app.flags.FLAGS
-
 tf.app.flags.DEFINE_string('train_dir', '/tmp/cifar10_train',
                            """Directory where to write event logs """
                            """and checkpoint.""")
@@ -77,7 +74,7 @@ def train():
 
     # Build a Graph that trains the model with one batch of examples and updates the model parameters.
     train_op = cifar10.train(loss, global_step)
-    
+
     # Hook = tools run in process of train/eval of model
     class _LoggerHook(tf.train.SessionRunHook):
       """Logs loss and runtime."""
@@ -104,7 +101,7 @@ def train():
 
           format_str = ('%s: step %d, loss = %.2f (%.1f examples/sec; %.3f sec/batch)')
           print (format_str % (datetime.now(), self._step, loss_value, examples_per_sec, sec_per_batch))
-    
+
     # creates a MonitoredSession for training -> sets proper session initializer/restorer
     # create hooks related to checkpoint & summary saving
     with tf.train.MonitoredTrainingSession(
